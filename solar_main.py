@@ -1,14 +1,10 @@
 # coding: utf-8
 # license: GPLv3
 
-import tkinter
-# from tkinter.filedialog import *
-# from solar_vis import *
-# from solar_model import *
+import tkinter.filedialog
 import solar_vis as vis
 import solar_input
 import solar_model as model
-import solar_objects
 
 perform_execution = False
 """Флаг цикличности выполнения расчёта"""
@@ -81,7 +77,7 @@ def open_file_dialog():
     perform_execution = False
     for obj in space_objects:
         space.delete(obj.image)  # удаление старых изображений планет
-    in_filename = tkinter.askopenfilename(filetypes=(("Text file", ".txt"),))
+    in_filename = tkinter.filedialog.askopenfilename(filetypes=(("Text file", ".txt"),))
     space_objects = solar_input.read_space_objects_data_from_file(in_filename)
     max_distance = max([max(abs(obj.x), abs(obj.y)) for obj in space_objects])
     vis.calculate_scale_factor(max_distance)
@@ -100,7 +96,7 @@ def save_file_dialog():
     функцию считывания параметров системы небесных тел из данного файла.
     Считанные объекты сохраняются в глобальный список space_objects
     """
-    out_filename = tkinter.asksaveasfilename(filetypes=(("Text file", ".txt"),))
+    out_filename = tkinter.filedialog.asksaveasfilename(filetypes=(("Text file", ".txt"),))
     solar_input.write_space_objects_data_to_file(out_filename, space_objects)
 
 
