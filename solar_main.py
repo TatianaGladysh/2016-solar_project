@@ -74,6 +74,7 @@ def open_file_dialog():
     """
     global space_objects
     global perform_execution
+    global physical_time
     perform_execution = False
     for obj in space_objects:
         space.delete(obj.image)  # удаление старых изображений планет
@@ -96,8 +97,9 @@ def save_file_dialog():
     функцию считывания параметров системы небесных тел из данного файла.
     Считанные объекты сохраняются в глобальный список space_objects
     """
+    time = physical_time
     out_filename = tkinter.filedialog.asksaveasfilename(filetypes=(("Text file", ".txt"),))
-    solar_input.write_space_objects_data_to_file(out_filename, space_objects, physical_time)
+    solar_input.write_space_objects_data_to_file(out_filename, space_objects, time)
 
 
 def main():
