@@ -97,7 +97,7 @@ def save_file_dialog():
     Считанные объекты сохраняются в глобальный список space_objects
     """
     out_filename = tkinter.filedialog.asksaveasfilename(filetypes=(("Text file", ".txt"),))
-    solar_input.write_space_objects_data_to_file(out_filename, space_objects)
+    solar_input.write_space_objects_data_to_file(out_filename, space_objects, physical_time)
 
 
 def main():

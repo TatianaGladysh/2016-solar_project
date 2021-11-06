@@ -82,7 +82,7 @@ def parse_planet_parameters(line, planet):
     planet.Vy = float(line.split()[7])
 
 
-def write_space_objects_data_to_file(output_filename, space_objects):
+def write_space_objects_data_to_file(output_filename, space_objects, time):
     """Сохраняет данные о космических объектах в файл.
     Строки должны иметь следующий формат:
     Star <радиус в пикселах> <цвет> <масса> <x> <y> <Vx> <Vy>
@@ -92,11 +92,14 @@ def write_space_objects_data_to_file(output_filename, space_objects):
 
     **output_filename** — имя входного файла
     **space_objects** — список объектов планет и звёзд
+    **time** — момент времени, в который произошло сохранение
     """
     with open(output_filename, 'w') as out_file:
+        print("Time:", time, "seconds", file=out_file)
+        print("", file=out_file)
         for obj in space_objects:
-            print(out_file, "%s %d %s %f" % ('1', 2, '3', 4.5))
-            # FIXME: should store real values
+            print(obj.type[0].upper() + obj.type[1::], obj.color, obj.m, obj.x, obj.y, obj.Vx, obj.Vy, file=out_file)
+            print("", file=out_file)
 
 
 # FIXME: хорошо бы ещё сделать функцию, сохранающую статистику в заданный файл...
