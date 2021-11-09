@@ -95,18 +95,26 @@ def write_space_objects_data_to_file(output_filename, space_objects, time):
     **space_objects** — список объектов планет и звёзд
     **time** — момент времени, в который произошло сохранение
     """
+    speeds = []
+    lengths = []
+    times = []
     with open(output_filename, 'w') as out_file:
         print("Time:", time, "seconds", file=out_file)
         print("", file=out_file)
         for obj in space_objects:
             print(obj.type[0].upper() + obj.type[1::], obj.color, obj.m, obj.x, obj.y, obj.Vx, obj.Vy, file=out_file)
+            for i in range(len(obj.stats)):
+                speeds.append(obj.stats[i][0])
+                lengths.append(obj.stats[i][1])
+                times.append(obj.stats[i][2])
 
-        #pp = plt.subplot(221)
-        #plt.plot(obj.[-][0]
-        #pp = plt.subplot(222)
-        #plt.plot(obj.
-        #pp = plt.subplot(223)
-        #plt.plot(obj.
+            pp = plt.subplot(221)
+            plt.plot(times, speeds)
+            pp = plt.subplot(222)
+            plt.plot(times, lengths)
+            pp = plt.subplot(223)
+            plt.plot(lengths, speeds)
+            plt.savefig('Grafics.png', file=out_file)
         print("", file=out_file)
 
 
