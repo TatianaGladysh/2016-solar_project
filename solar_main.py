@@ -35,6 +35,7 @@ def execution():
     global displayed_time
     model.recalculate_space_objects_positions(space_objects, time_step.get())
     for body in space_objects:
+        body.stats[-1].append(physical_time)
         vis.update_object_position(space, body)
     physical_time += time_step.get()
     displayed_time.set("%.1f" % physical_time + " seconds gone")
