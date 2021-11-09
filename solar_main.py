@@ -33,9 +33,8 @@ def execution():
     """
     global physical_time
     global displayed_time
-    model.recalculate_space_objects_positions(space_objects, time_step.get())
+    model.recalculate_space_objects_positions(space_objects, time_step.get(), physical_time)
     for body in space_objects:
-        body.stats[-1].append(physical_time)
         vis.update_object_position(space, body)
     physical_time += time_step.get()
     displayed_time.set("%.1f" % physical_time + " seconds gone")
@@ -83,6 +82,7 @@ def open_file_dialog():
     space_objects = solar_input.read_space_objects_data_from_file(in_filename)
     max_distance = max([max(abs(obj.x), abs(obj.y)) for obj in space_objects])
     vis.calculate_scale_factor(max_distance)
+
 
     for obj in space_objects:
         if obj.type == 'star':
