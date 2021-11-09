@@ -101,6 +101,8 @@ def save_file_dialog():
     time = physical_time
     out_filename = tkinter.filedialog.asksaveasfilename(filetypes=(("Text file", ".txt"),))
     solar_input.write_space_objects_data_to_file(out_filename, space_objects, time)
+    vis.update_system_name(space, "File name")
+    # Fixme
 
 
 def main():
@@ -134,7 +136,7 @@ def main():
     time_step_entry.pack(side=tkinter.LEFT)
 
     time_speed = tkinter.DoubleVar()
-    scale = tkinter.Scale(frame, variable=time_speed, orient=tkinter.HORIZONTAL)
+    scale = tkinter.Scale(frame, variable=time_speed, orient=tkinter.HORIZONTAL, label="time speed")
     scale.pack(side=tkinter.LEFT)
 
     load_file_button = tkinter.Button(frame, text="Open file...", command=open_file_dialog)
