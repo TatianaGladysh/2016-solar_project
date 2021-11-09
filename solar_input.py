@@ -2,6 +2,7 @@
 # license: GPLv3
 
 from solar_objects import Star, Planet
+import matplotlib.pyplot as plt
 
 
 def read_space_objects_data_from_file(input_filename):
@@ -99,7 +100,8 @@ def write_space_objects_data_to_file(output_filename, space_objects, time):
         print("", file=out_file)
         for obj in space_objects:
             print(obj.type[0].upper() + obj.type[1::], obj.color, obj.m, obj.x, obj.y, obj.Vx, obj.Vy, file=out_file)
-            print(obj.stats)
+            pp = plt.subplot(221)
+            plt.plot(
             print("", file=out_file)
 
 
