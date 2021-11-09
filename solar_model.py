@@ -23,7 +23,7 @@ def calculate_force(body, space_objects):
         body.Fy += gravitational_constant * obj.m * body.m / r ** 3 * (obj.y - body.y)
 
 
-def move_space_object(body, dt, sun):
+def move_space_object(body, dt, t, sun):
     """Перемещает тело в соответствии с действующей на него силой.
 
     Параметры:
@@ -38,10 +38,10 @@ def move_space_object(body, dt, sun):
     ay = body.Fy / body.m
     body.y += body.Vy * dt
     body.Vy += ay * dt
-    return [(body.Vx ** 2 + body.Vy ** 2) ** (1 / 2), ((sun.x - body.x) ** 2 + (sun.y - body.y) ** 2) ** (1 / 2)]
+    return [(body.Vx ** 2 + body.Vy ** 2) ** (1 / 2), ((sun.x - body.x) ** 2 + (sun.y - body.y) ** 2) ** (1 / 2), t]
 
 
-def recalculate_space_objects_positions(space_objects, dt):
+def recalculate_space_objects_positions(space_objects, dt, t):
     """Пересчитывает координаты объектов.
 
     Параметры:
@@ -52,7 +52,7 @@ def recalculate_space_objects_positions(space_objects, dt):
     for body in space_objects:
         calculate_force(body, space_objects)
     for body in space_objects:
-        body.stats.append(move_space_object(body, dt, space_objects[0]))
+        body.stats.append(move_space_object(body, dt, t, space_objects[0]))
 
 
 if __name__ == "__main__":
