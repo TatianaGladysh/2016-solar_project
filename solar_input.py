@@ -114,7 +114,7 @@ def write_space_objects_data_to_file(output_filename, space_objects, time):
             plt.plot(times, lengths)
             pp = plt.subplot(223)
             plt.plot(lengths, speeds)
-            plt.savefig('Grafics.png', file=out_file)
+            plt.savefig('Grafics.png')
         print("", file=out_file)
 
 
