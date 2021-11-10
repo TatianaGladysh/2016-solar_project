@@ -111,32 +111,30 @@ def write_space_objects_data_to_file(output_filename, space_objects, time):
                     lengths.append(obj.stats[i][1])
                     times.append(obj.stats[i][2])
             count += 1  # графики считаются для второго поданного объекта относительно первого (предположительно Солнца)
-
+        print(times)
+        print(speeds)
+        print(lengths)
         plt.plot(times, speeds, color="red")
         plt.grid()
         plt.xlabel("Time, s")
         plt.ylabel("Total velocity, m/s")
-        plt.savefig('Grafic1.png')
+        plt.savefig("Grafic1.png")
         plt.clf()
 
         plt.plot(times, lengths, color="black")
         plt.grid()
         plt.xlabel("Time, s")
         plt.ylabel("Distance to sun, m")
-        plt.savefig('Grafic2.png')
+        plt.savefig("Grafic2.png")
         plt.clf()
 
         plt.plot(lengths, speeds, color="blue")
         plt.grid()
         plt.xlabel("Distance to sun, m")
         plt.ylabel("Total velocity, m/s")
-        plt.savefig('Grafic3.png')
+        plt.savefig("Grafic3.png")
         plt.clf()
 
-        print("", file=out_file)
-
-
-# FIXME: хорошо бы ещё сделать функцию, сохранающую статистику в заданный файл...
 
 if __name__ == "__main__":
     print("This module is not for direct call!")

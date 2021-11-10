@@ -94,7 +94,7 @@ def update_system_name(space, system_name, space_writing=0):
 
     **space** — холст для рисования.
     **system_name** — название системы тел.
-    **space_writing** - текст
+    **space_writing** - написанный на холсте текст
     """
     if space_writing != 0:
         space.delete(space_writing)
