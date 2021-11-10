@@ -9,10 +9,10 @@
 header_font = "Arial-16"
 """Шрифт в заголовке"""
 
-window_width = 400
+window_width = 800
 """Ширина окна"""
 
-window_height = 400
+window_height = 600
 """Высота окна"""
 
 scale_factor = None
@@ -86,7 +86,7 @@ def create_planet_image(space, planet):
     planet.image = space.create_oval([x - r, y - r], [x + r, y + r], fill=planet.color)
 
 
-def update_system_name(space, system_name):
+def update_system_name(space, system_name, space_writing=0):
     """Создаёт на холсте текст с названием системы небесных тел.
     Если текст уже был, обновляет его содержание.
 
@@ -94,8 +94,11 @@ def update_system_name(space, system_name):
 
     **space** — холст для рисования.
     **system_name** — название системы тел.
+    **space_writing** - текст
     """
-    space.create_text(30, 80, tag="header", text=system_name, font=header_font)
+    if space_writing != 0:
+        space.delete(space_writing)
+    return space.create_text(window_width / 2, 20, tag="header", text=system_name, font=header_font, fill="magenta")
 
 
 def update_object_position(space, body):

@@ -99,22 +99,39 @@ def write_space_objects_data_to_file(output_filename, space_objects, time):
     lengths = []
     times = []
     with open(output_filename, 'w') as out_file:
+        count = 0
         print("Time:", time, "seconds", file=out_file)
         print("", file=out_file)
         for obj in space_objects:
             print(obj.type[0].upper() + obj.type[1::], obj.color, obj.m, obj.x, obj.y, obj.Vx, obj.Vy, file=out_file)
-            for i in range(len(obj.stats)):
-                speeds.append(obj.stats[i][0])
-                lengths.append(obj.stats[i][1])
-                times.append(obj.stats[i][2])
+            if count == 1:
+                for i in range(len(obj.stats)):
+                    speeds.append(obj.stats[i][0])
+                    lengths.append(obj.stats[i][1])
+                    times.append(obj.stats[i][2])
+            count += 1  # графики считаются для второго поданного объекта относительно первого (предположительно Солнца)
 
-            pp = plt.subplot(221)
-            plt.plot(times, speeds)
-            pp = plt.subplot(222)
-            plt.plot(times, lengths)
-            pp = plt.subplot(223)
-            plt.plot(lengths, speeds)
-            plt.savefig('Grafics.png')
+        plt.plot(times, speeds, color="red")
+        plt.grid()
+        plt.xlabel("Time, s")
+        plt.ylabel("Total velocity, m/s")
+        plt.savefig('Grafic1.png')
+        plt.clf()
+
+        plt.plot(times, lengths, color="black")
+        plt.grid()
+        plt.xlabel("Time, s")
+        plt.ylabel("Distance to sun, m")
+        plt.savefig('Grafic2.png')
+        plt.clf()
+
+        plt.plot(lengths, speeds, color="blue")
+        plt.grid()
+        plt.xlabel("Distance to sun, m")
+        plt.ylabel("Total velocity, m/s")
+        plt.savefig('Grafic3.png')
+        plt.clf()
+
         print("", file=out_file)
 
 
