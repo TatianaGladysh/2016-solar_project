@@ -104,6 +104,7 @@ def write_space_objects_data_to_file(output_filename, space_objects, time):
         print("", file=out_file)
         for obj in space_objects:
             print(obj.type[0].upper() + obj.type[1::], obj.color, obj.m, obj.x, obj.y, obj.Vx, obj.Vy, file=out_file)
+            print("", file=out_file)
             if count == 1:
                 for i in range(len(obj.stats)):
                     speeds.append(obj.stats[i][0])
