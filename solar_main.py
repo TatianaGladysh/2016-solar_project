@@ -117,6 +117,7 @@ class Cosmos:
             vis.calculate_scale_factor(max_distance)
             self.space_writing = vis.update_system_name(self.space, in_filename.split("/")[-1].split(".")[0],
                                                         self.space_writing)
+            self.stats = []
             self.physical_time = 0
             self.displayed_time.set(str(self.physical_time) + " seconds gone")
 
@@ -136,7 +137,8 @@ class Cosmos:
         self.stop_execution()
         out_filename = tkinter.filedialog.asksaveasfilename(filetypes=(("Text file", ".txt"),))
         if out_filename != '':
-            solar_input.write_space_objects_data_to_file(out_filename, self.space_objects, self.physical_time, self.stats)
+            solar_input.write_space_objects_data_to_file(out_filename, self.space_objects, self.physical_time,
+                                                         self.stats)
 
 
 if __name__ == "__main__":
