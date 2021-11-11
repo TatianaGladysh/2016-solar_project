@@ -83,7 +83,7 @@ def parse_planet_parameters(line, planet):
     planet.Vy = float(line.split()[7])
 
 
-def write_space_objects_data_to_file(output_filename, space_objects, time):
+def write_space_objects_data_to_file(output_filename, space_objects, time, stats):
     """Сохраняет данные о космических объектах в файл.
     Строки должны иметь следующий формат:
     Star <радиус в пикселах> <цвет> <масса> <x> <y> <Vx> <Vy>
@@ -98,38 +98,36 @@ def write_space_objects_data_to_file(output_filename, space_objects, time):
     speeds = []
     lengths = []
     times = []
+    for i in range(len(stats)):
+        speeds.append(stats[i][0])
+        lengths.append(stats[i][1])
+        times.append(stats[i][2])
     with open(output_filename, 'w') as out_file:
-        count = 0
         print("Time:", time, "seconds", file=out_file)
         print("", file=out_file)
         for obj in space_objects:
             print(obj.type[0].upper() + obj.type[1::], obj.color, obj.m, obj.x, obj.y, obj.Vx, obj.Vy, file=out_file)
             print("", file=out_file)
-            if count == 1:
-                for i in range(len(obj.stats)):
-                    speeds.append(obj.stats[i][0])
-                    lengths.append(obj.stats[i][1])
-                    times.append(obj.stats[i][2])
-            count += 1  # графики считаются для второго поданного объекта относительно первого (предположительно Солнца)
+
         plt.plot(times, speeds, color="red")
         plt.grid()
         plt.xlabel("Time, s")
         plt.ylabel("Total velocity, m/s")
-        plt.savefig(r"Grafic1.png")
+        plt.savefig(r"Graphic1.png")
         plt.clf()
 
         plt.plot(times, lengths, color="black")
         plt.grid()
         plt.xlabel("Time, s")
         plt.ylabel("Distance to sun, m")
-        plt.savefig(r"Grafic2.png")
+        plt.savefig(r"Graphic2.png")
         plt.clf()
 
         plt.plot(lengths, speeds, color="blue")
         plt.grid()
         plt.xlabel("Distance to sun, m")
         plt.ylabel("Total velocity, m/s")
-        plt.savefig(r"Grafic3.png")
+        plt.savefig(r"Graphic3.png")
         plt.clf()
 
 

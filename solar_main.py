@@ -24,6 +24,8 @@ class Cosmos:
         """Физическое время от начала расчёта.
         Тип: float"""
 
+        self.stats = []
+
         root = tkinter.Tk()
         # космическое пространство отображается на холсте типа Canvas
         self.space = tkinter.Canvas(root, width=vis.window_width, height=vis.window_height, bg="black")
@@ -69,7 +71,8 @@ class Cosmos:
         Цикличность выполнения зависит от значения глобальной переменной perform_execution.
         При perform_execution == True функция запрашивает вызов самой себя по таймеру через от 1 мс до 100 мс.
         """
-        model.recalculate_space_objects_positions(self.space_objects, self.time_step.get(), self.physical_time)
+        self.stats.append(
+            model.recalculate_space_objects_positions(self.space_objects, self.time_step.get(), self.physical_time))
         for body in self.space_objects:
             vis.update_object_position(self.space, body)
         self.physical_time += self.time_step.get()
@@ -103,9 +106,9 @@ class Cosmos:
         функцию считывания параметров системы небесных тел из данного файла.
         Считанные объекты сохраняются в глобальный список space_objects
         """
+        self.stop_execution()
         in_filename = tkinter.filedialog.askopenfilename(filetypes=(("Text file", ".txt"),))
-        if in_filename !='':
-            self.stop_execution()
+        if in_filename != '':
             for i in range(len(self.space_objects)):
                 self.space.delete(self.space_objects[-1].image)  # удаление старых изображений планет
                 self.space_objects.pop()
@@ -132,10 +135,7 @@ class Cosmos:
         """
         self.stop_execution()
         out_filename = tkinter.filedialog.asksaveasfilename(filetypes=(("Text file", ".txt"),))
-        solar_input.write_space_objects_data_to_file(out_filename, self.space_objects, self.physical_time)
-        #FIXME
-
-
+        solar_input.write_space_objects_data_to_file(out_filename, self.space_objects, self.physical_time, self.stats)
 
 
 if __name__ == "__main__":

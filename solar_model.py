@@ -52,10 +52,16 @@ def recalculate_space_objects_positions(space_objects, dt, t):
     **dt** — шаг по времени
     **t** - момент времени
     """
+    count = 0
     for body in space_objects:
         calculate_force(body, space_objects)
     for body in space_objects:
-        body.stats.append(move_space_object(body, dt, t, space_objects[0]))
+        if count == 1:
+            new_stats = move_space_object(body, dt, t, space_objects[0])
+        else:
+            move_space_object(body, dt, t, space_objects[0])
+        count += 1
+    return new_stats
 
 
 if __name__ == "__main__":
