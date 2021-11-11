@@ -103,26 +103,27 @@ class Cosmos:
         функцию считывания параметров системы небесных тел из данного файла.
         Считанные объекты сохраняются в глобальный список space_objects
         """
-        self.stop_execution()
-        for i in range(len(self.space_objects)):
-            self.space.delete(self.space_objects[-1].image)  # удаление старых изображений планет
-            self.space_objects.pop()
         in_filename = tkinter.filedialog.askopenfilename(filetypes=(("Text file", ".txt"),))
-        self.space_objects = solar_input.read_space_objects_data_from_file(in_filename)
-        max_distance = max([max(abs(obj.x), abs(obj.y)) for obj in self.space_objects])
-        vis.calculate_scale_factor(max_distance)
-        self.space_writing = vis.update_system_name(self.space, in_filename.split("/")[-1].split(".")[0],
-                                                    self.space_writing)
-        self.physical_time = 0
-        self.displayed_time.set(str(self.physical_time) + " seconds gone")
+        if in_filename !='':
+            self.stop_execution()
+            for i in range(len(self.space_objects)):
+                self.space.delete(self.space_objects[-1].image)  # удаление старых изображений планет
+                self.space_objects.pop()
+            self.space_objects = solar_input.read_space_objects_data_from_file(in_filename)
+            max_distance = max([max(abs(obj.x), abs(obj.y)) for obj in self.space_objects])
+            vis.calculate_scale_factor(max_distance)
+            self.space_writing = vis.update_system_name(self.space, in_filename.split("/")[-1].split(".")[0],
+                                                        self.space_writing)
+            self.physical_time = 0
+            self.displayed_time.set(str(self.physical_time) + " seconds gone")
 
-        for obj in self.space_objects:
-            if obj.type == 'star':
-                vis.create_star_image(self.space, obj)
-            elif obj.type == 'planet':
-                vis.create_planet_image(self.space, obj)
-            else:
-                raise AssertionError()
+            for obj in self.space_objects:
+                if obj.type == 'star':
+                    vis.create_star_image(self.space, obj)
+                elif obj.type == 'planet':
+                    vis.create_planet_image(self.space, obj)
+                else:
+                    raise AssertionError()
 
     def save_file_dialog(self):
         """Открывает диалоговое окно выбора имени файла и вызывает
@@ -133,6 +134,8 @@ class Cosmos:
         out_filename = tkinter.filedialog.asksaveasfilename(filetypes=(("Text file", ".txt"),))
         solar_input.write_space_objects_data_to_file(out_filename, self.space_objects, self.physical_time)
         #FIXME
+
+
 
 
 if __name__ == "__main__":
