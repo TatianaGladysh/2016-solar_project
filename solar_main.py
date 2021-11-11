@@ -135,7 +135,8 @@ class Cosmos:
         """
         self.stop_execution()
         out_filename = tkinter.filedialog.asksaveasfilename(filetypes=(("Text file", ".txt"),))
-        solar_input.write_space_objects_data_to_file(out_filename, self.space_objects, self.physical_time, self.stats)
+        if out_filename != '':
+            solar_input.write_space_objects_data_to_file(out_filename, self.space_objects, self.physical_time, self.stats)
 
 
 if __name__ == "__main__":
