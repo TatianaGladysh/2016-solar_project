@@ -113,21 +113,21 @@ def write_space_objects_data_to_file(output_filename, space_objects, time, stats
         plt.grid()
         plt.xlabel("Time, s")
         plt.ylabel("Total velocity, m/s")
-        plt.savefig(r"Graphic1.png")
+        plt.savefig(r"graphica")
         plt.clf()
 
         plt.plot(times, lengths, color="black")
         plt.grid()
         plt.xlabel("Time, s")
         plt.ylabel("Distance to sun, m")
-        plt.savefig(r"Graphic2.png")
+        plt.savefig(r"graphicb")
         plt.clf()
 
         plt.plot(lengths, speeds, color="blue")
         plt.grid()
         plt.xlabel("Distance to sun, m")
         plt.ylabel("Total velocity, m/s")
-        plt.savefig(r"Graphic3.png")
+        plt.savefig(r"graphicc")
         plt.clf()
 
 
