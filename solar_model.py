@@ -53,6 +53,7 @@ def recalculate_space_objects_positions(space_objects, dt, t):
     **t** - момент времени
     """
     count = 0
+    new_stats = 0
     for body in space_objects:
         calculate_force(body, space_objects)
     for body in space_objects:
