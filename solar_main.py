@@ -37,7 +37,7 @@ class Cosmos:
         self.start_button = tkinter.Button(frame, text="Start", command=self.start_execution, width=6)
         self.start_button.pack(side=tkinter.LEFT)
 
-        self.time_step = tkinter.DoubleVar()
+        self.time_step = tkinter.StringVar()
         self.time_step.set(1)
         time_step_entry = tkinter.Entry(frame, textvariable=self.time_step)
         time_step_entry.pack(side=tkinter.LEFT)
@@ -71,11 +71,15 @@ class Cosmos:
         Цикличность выполнения зависит от значения глобальной переменной perform_execution.
         При perform_execution == True функция запрашивает вызов самой себя по таймеру через от 1 мс до 100 мс.
         """
+
+        # if self.time_step.get() == "" or not self.time_step.get().isnumeric:
+        if self.time_step.get() == "":
+            self.time_step.set(0)
         self.stats.append(
-            model.recalculate_space_objects_positions(self.space_objects, self.time_step.get(), self.physical_time))
+            model.recalculate_space_objects_positions(self.space_objects, float(self.time_step.get()), self.physical_time))
         for body in self.space_objects:
             vis.update_object_position(self.space, body)
-        self.physical_time += self.time_step.get()
+        self.physical_time += float(self.time_step.get())
         self.displayed_time.set("%.1f" % self.physical_time + " seconds gone")
 
         if self.perform_execution:
