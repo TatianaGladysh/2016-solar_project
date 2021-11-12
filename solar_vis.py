@@ -20,8 +20,12 @@ def calculate_scale_factor(max_distance):
     """
     Вычисляет значение переменной масштабирования по данной характерной длине
     Возвращает переменную масштабирования
+
+    Параметры:
+
+    **max_distance** — максимальное расстояние до одной из планет.
     """
-    scale_factor_to_calculate = 0.4 * min(window_height, window_width) / max_distance
+    scale_factor_to_calculate = 0.3 * min(window_height, window_width) / max_distance
     print('Scale factor:', scale_factor_to_calculate)
     return scale_factor_to_calculate
 
@@ -35,6 +39,7 @@ def scale_x(x, scale_factor):
     Параметры:
 
     **x** — x-координата модели.
+    **scale_factor** - коэффициент масштабирования.
     """
 
     return int(x * scale_factor) + window_width // 2
@@ -50,6 +55,7 @@ def scale_y(y, scale_factor):
     Параметры:
 
     **y** — y-координата модели.
+    **scale_factor** - коэффициент масштабирования.
     """
 
     return int(window_height / 2 - y * scale_factor)
@@ -62,6 +68,7 @@ def create_star_image(space, star, scale_factor):
 
     **space** — холст для рисования.
     **star** — объект звезды.
+    **scale_factor** - коэффициент масштабирования.
     """
 
     x = scale_x(star.x, scale_factor)
@@ -77,6 +84,7 @@ def create_planet_image(space, planet, scale_factor):
 
     **space** — холст для рисования.
     **planet** — объект планеты.
+    **scale_factor** - коэффициент масштабирования.
     """
     x = scale_x(planet.x, scale_factor)
     y = scale_y(planet.y, scale_factor)
@@ -106,6 +114,7 @@ def update_object_position(space, body, scale_factor):
 
     **space** — холст для рисования.
     **body** — тело, которое нужно переместить.
+    **scale_factor** - коэффициент масштабирования.
     """
     x = scale_x(body.x, scale_factor)
     y = scale_y(body.y, scale_factor)

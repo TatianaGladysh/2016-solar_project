@@ -33,13 +33,15 @@ def move_space_object(body, dt, t, sun):
     **t** - момент времени, в который происходит перемещение
     **sun** - 1ый вводимый объект, предположительно солнце, для которого мы будем считать расстояния
     """
-
-    ax = body.Fx / body.m
-    body.x += body.Vx * dt
-    body.Vx += ax * dt
-    ay = body.Fy / body.m
-    body.y += body.Vy * dt
-    body.Vy += ay * dt
+    small_time_factor = 1000
+    for i in range(small_time_factor):
+        small_dt = dt/small_time_factor
+        ax = body.Fx / body.m
+        body.x += body.Vx * small_dt
+        body.Vx += ax * small_dt
+        ay = body.Fy / body.m
+        body.y += body.Vy * small_dt
+        body.Vy += ay * small_dt
     return [(body.Vx ** 2 + body.Vy ** 2) ** (1 / 2), ((sun.x - body.x) ** 2 + (sun.y - body.y) ** 2) ** (1 / 2), t]
 
 
