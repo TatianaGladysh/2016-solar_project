@@ -72,6 +72,11 @@ class Cosmos:
         self.space_writing = vis.update_system_name(self.space, "Space simulation")
         """Название модели"""
 
+        self.scale_factor = None
+        """Масштабирование экранных координат по отношению к физическим.
+        Тип: float
+        Мера: количество пикселей на один метр."""
+
         print('Modelling finished!')
 
     def execution(self):
@@ -94,7 +99,7 @@ class Cosmos:
                     model.recalculate_space_objects_positions(self.space_objects, self.last_correct_time_step,
                                                               self.physical_time))
             for body in self.space_objects:
-                vis.update_object_position(self.space, body)
+                vis.update_object_position(self.space, body, self.scale_factor)
             self.physical_time += self.last_correct_time_step
             self.displayed_time.set("%.1f" % self.physical_time + " seconds gone")
             root.update()
@@ -142,7 +147,7 @@ class Cosmos:
                 self.space_objects.pop()
             self.space_objects = solar_input.read_space_objects_data_from_file(in_filename)
             max_distance = max([max(abs(obj.x), abs(obj.y)) for obj in self.space_objects])
-            vis.calculate_scale_factor(max_distance)
+            self.scale_factor = vis.calculate_scale_factor(max_distance)
             self.space_writing = vis.update_system_name(self.space, in_filename.split("/")[-1].split(".")[0],
                                                         self.space_writing)
             self.stats = []
@@ -151,9 +156,9 @@ class Cosmos:
 
             for obj in self.space_objects:
                 if obj.type == 'star':
-                    vis.create_star_image(self.space, obj)
+                    vis.create_star_image(self.space, obj, self.scale_factor)
                 elif obj.type == 'planet':
-                    vis.create_planet_image(self.space, obj)
+                    vis.create_planet_image(self.space, obj, self.scale_factor)
                 else:
                     raise AssertionError()
 

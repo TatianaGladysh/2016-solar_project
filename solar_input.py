@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 def read_space_objects_data_from_file(input_filename):
     """
-    Cчитывает данные о космических объектах из файла, создаёт сами объекты
+    Считывает данные о космических объектах из файла, создаёт сами объекты
     и вызывает создание их графических образов
 
     Параметры:
@@ -101,6 +101,7 @@ def write_space_objects_data_to_file(output_filename, space_objects, time):
         for obj in space_objects:
             print(obj.type[0].upper() + obj.type[1::], obj.color, obj.m, obj.x, obj.y, obj.Vx, obj.Vy, file=out_file)
             print("", file=out_file)
+
 
 def made_graphics(stats):
     """Сохраняет графики.
