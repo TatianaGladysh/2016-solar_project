@@ -61,7 +61,6 @@ def parse_star_parameters(line, star):
 
 def parse_planet_parameters(line, planet):
     """Считывает данные о планете из строки.
-    Предполагается такая строка:
     Входная строка должна иметь слеюущий формат:
     Planet <радиус в пикселах> <цвет> <масса> <x> <y> <Vx> <Vy>
 
@@ -84,7 +83,7 @@ def parse_planet_parameters(line, planet):
     planet.Vy = float(line.split()[7])
 
 
-def write_space_objects_data_to_file(output_filename, space_objects, time, stats):
+def write_space_objects_data_to_file(output_filename, space_objects, time):
     """Сохраняет данные о космических объектах в файл.
     Строки должны иметь следующий формат:
     Star <радиус в пикселах> <цвет> <масса> <x> <y> <Vx> <Vy>
@@ -96,13 +95,6 @@ def write_space_objects_data_to_file(output_filename, space_objects, time, stats
     **space_objects** — список объектов планет и звёзд
     **time** — момент времени, в который произошло сохранение
     """
-    speeds = []
-    lengths = []
-    times = []
-    for i in range(len(stats)):
-        speeds.append(stats[i][0])
-        lengths.append(stats[i][1])
-        times.append(stats[i][2])
     with open(output_filename, 'w') as out_file:
         print("Time:", time, "seconds", file=out_file)
         print("", file=out_file)
@@ -110,26 +102,40 @@ def write_space_objects_data_to_file(output_filename, space_objects, time, stats
             print(obj.type[0].upper() + obj.type[1::], obj.color, obj.m, obj.x, obj.y, obj.Vx, obj.Vy, file=out_file)
             print("", file=out_file)
 
-        plt.plot(times, speeds, color="red")
-        plt.grid()
-        plt.xlabel("Time, s")
-        plt.ylabel("Total velocity, m/s")
-        plt.savefig(r"graphica")
-        plt.clf()
+def made_graphics(stats):
+    """Сохраняет графики.
 
-        plt.plot(times, lengths, color="black")
-        plt.grid()
-        plt.xlabel("Time, s")
-        plt.ylabel("Distance to sun, m")
-        plt.savefig(r"graphicb")
-        plt.clf()
+    Параметры:
 
-        plt.plot(lengths, speeds, color="blue")
-        plt.grid()
-        plt.xlabel("Distance to sun, m")
-        plt.ylabel("Total velocity, m/s")
-        plt.savefig(r"graphicc")
-        plt.clf()
+    **stats** — список статистики
+    """
+    speeds = []
+    lengths = []
+    times = []
+    for i in range(len(stats)):
+        speeds.append(stats[i][0])
+        lengths.append(stats[i][1])
+        times.append(stats[i][2])
+    plt.plot(times, speeds, color="red")
+    plt.grid()
+    plt.xlabel("Time, s")
+    plt.ylabel("Total velocity, m/s")
+    plt.savefig(r"Speed_time")
+    plt.clf()
+
+    plt.plot(times, lengths, color="black")
+    plt.grid()
+    plt.xlabel("Time, s")
+    plt.ylabel("Distance to sun, m")
+    plt.savefig(r"Distance_time")
+    plt.clf()
+
+    plt.plot(lengths, speeds, color="blue")
+    plt.grid()
+    plt.xlabel("Distance to sun, m")
+    plt.ylabel("Total velocity, m/s")
+    plt.savefig(r"Speed_distance")
+    plt.clf()
 
 
 if __name__ == "__main__":
